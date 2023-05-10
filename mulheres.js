@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const cors = require('cors') // aqui estou trazendo o pacote cors que permite consumir essa api no front-end
 
 const conectaBancoDeDados = require('./bancoDeDados') //aqui eu estou ligando ao arquivo bancoDeDados
 conectaBancoDeDados() //estou chamando a função que conecta o banco de dados
@@ -8,6 +9,8 @@ const Mulher = require('./mulherModel.js')
 
 const app = express()
 app.use(express.json())
+app.use(cors())
+
 const porta = 3333
 
 async function mostraMulheres(request, response) {
