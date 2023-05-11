@@ -1,5 +1,5 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express') // aqui estou iniciando o express
+const router = express.Router() // aqui estou configurando a primeira parte da rota
 const cors = require('cors') // aqui estou trazendo o pacote cors que permite consumir essa api no front-end
 
 const conectaBancoDeDados = require('./bancoDeDados') //aqui eu estou ligando ao arquivo bancoDeDados
@@ -7,12 +7,13 @@ conectaBancoDeDados() //estou chamando a função que conecta o banco de dados
 
 const Mulher = require('./mulherModel.js')
 
-const app = express()
+const app = express() // aqui estou iniciando o app
 app.use(express.json())
 app.use(cors())
 
-const porta = 3333
+const porta = 3333 // aqui estou criando a porta
 
+//GET
 async function mostraMulheres(request, response) {
   try {
     const mulheresVindasDoBancoDeDados = await Mulher.find()
@@ -79,12 +80,13 @@ async function deletaMulher(request, response) {
   }
 }
 
+//PORTA
 function mostraPorta() {
   console.log(`Servidor criado e rodando na porta ${porta}`)
 }
 
-app.use(router.get('/mulheres', mostraMulheres))
-app.use(router.post('/mulheres', criaMulher))
-app.use(router.patch('/mulheres/:id', corrigeMulher))
-app.use(router.delete('/mulheres/:id', deletaMulher))
-app.listen(porta, mostraPorta)
+app.use(router.get('/mulheres', mostraMulheres)) // configurei rota GET /mulheres
+app.use(router.post('/mulheres', criaMulher)) // configurei rota POST /mulheres
+app.use(router.patch('/mulheres/:id', corrigeMulher)) // configurei rota PATCH /mulheres/:id
+app.use(router.delete('/mulheres/:id', deletaMulher)) // configurei rota DELETE /mulheres/:id
+app.listen(porta, mostraPorta) // servidor ouvindo a porta
